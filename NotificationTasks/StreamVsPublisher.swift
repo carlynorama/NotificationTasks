@@ -106,9 +106,10 @@ struct ExampleView: View {
         let flipWatcher =  FlipWatcher()
 
         do {
-            for try await value in  flipWatcher {
+            for try await value in flipWatcher {
                 withAnimation {
                     isPortraitFromLocalSequence = value == .portrait
+                    print("FlipWatcher: \(value)")
                 }
             }
         } catch {
