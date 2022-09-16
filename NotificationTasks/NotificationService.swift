@@ -4,25 +4,27 @@
 //
 //  Created by Labtanza on 9/13/22.
 //
+// https://developer.apple.com/documentation/foundation/nsnotification/name
 
 import Foundation
 import SwiftUI
 
-extension Notification.Name {
-
-    static let MySpecialNotification = Notification.Name("MySpecialNotification")
-
-}
+//extension Notification.Name {
+//
+//    static let MySpecialNotification = Notification.Name("MySpecialNotification")
+//
+//}
 
 
 final class NotificationService {
     let notifiationCenter = NotificationCenter.default
     
     let messageNotificationName = Notification.Name(rawValue: "special.message")
-    private var observer:NSObjectProtocol?
     
-    private var observer2:NSObjectProtocol?
+    private var flipObserver:NSObjectProtocol?
+    private var messageObserver:NSObjectProtocol?
     
+    //Does this need to be weak? Does everyone need to resign?
     private var observers:[NSObjectProtocol] = []
     
     init () {
@@ -31,7 +33,7 @@ final class NotificationService {
     }
     
     func setFlipObserver() {
-        observer = NotificationCenter.default.addObserver(
+        flipObserver = NotificationCenter.default.addObserver(
             forName: UIDevice.orientationDidChangeNotification,
             object: nil, queue: nil) { [weak self] notification in   //if Service becomes a class ?
                print(notification)
@@ -40,7 +42,7 @@ final class NotificationService {
     }
     
     func setCustomMessageObserver() {
-        observer2 = NotificationCenter.default.addObserver(
+        messageObserver = NotificationCenter.default.addObserver(
             forName: messageNotificationName,
             object: nil, queue: nil) { [weak self] notification in
                print(notification)
@@ -49,14 +51,19 @@ final class NotificationService {
     }
     
     deinit {
-        if let observer {
-            notifiationCenter.removeObserver(observer)
-            print("removed 1")
+        if let flipObserver {
+            notifiationCenter.removeObserver(flipObserver)
+            print("removed \(flipObserver.description)")
         }
         
-        if let observer2 {
-            notifiationCenter.removeObserver(observer2)
-            print("removed 2")
+        if let messageObserver {
+            notifiationCenter.removeObserver(messageObserver)
+            print("removed \(messageObserver.description)")
+        }
+        
+        for observer in observers {
+            notifiationCenter.removeObserver(observer)
+            print("removed \(observer.description)")
         }
     }
     
@@ -78,13 +85,19 @@ final class NotificationService {
         }
     }
     
-    func addObserver() {
+    func addObserver(forName name:NSNotification.Name?, object:Any?, queue: OperationQueue?, using: @escaping (Notification) -> Void) {
        let newObserver = notifiationCenter.addObserver(
-            forName: UIDevice.orientationDidChangeNotification,///.batteryLevelDidChangeNotification,
-            object: nil, queue: nil,
-            using: batteryLevelChanged)
+            forName: name,///.batteryLevelDidChangeNotification,
+            object: object, queue: queue,
+            using: using)
         observers.append(newObserver)
     }
+    
+    
+//    func notifications(
+//        named name: Notification.Name,
+//        object: AnyObject? = nil
+//    ) -> NotificationCenter.Notifications
 
 //    let observer = NotificationCenter.default.addObserver(
 //        forName: NSNotification.Name.UIDeviceBatteryLevelDidChange,

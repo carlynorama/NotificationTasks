@@ -27,16 +27,17 @@ struct NotificationView: View {
     var notificationService = NotificationService()
     
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-            Button("Post Message") {
-                notificationService.publishMessage("Hello")
-            }
-        }
-        .padding()
+        ExampleView()
+//        VStack {
+//            Image(systemName: "globe")
+//                .imageScale(.large)
+//                .foregroundColor(.accentColor)
+//            Text("Hello, world!")
+//            Button("Post Message") {
+//                notificationService.publishMessage("Hello")
+//            }
+//        }
+//        .padding()
     }
 }
 
