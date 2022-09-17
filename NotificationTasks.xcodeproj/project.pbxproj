@@ -11,6 +11,7 @@
 		DAB1ADAB28D51F970079B30A /* NotificationWatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB1ADAA28D51F970079B30A /* NotificationWatchers.swift */; };
 		DAB1ADAD28D613040079B30A /* FlavorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB1ADAC28D613040079B30A /* FlavorManager.swift */; };
 		DAB1ADAF28D613140079B30A /* InsistantPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB1ADAE28D613140079B30A /* InsistantPopover.swift */; };
+		DAB1ADB328D629730079B30A /* FlavorNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB1ADB228D629730079B30A /* FlavorNotificationService.swift */; };
 		DABEA55928D0F1FC0031A91C /* NotificationTasksApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABEA55828D0F1FC0031A91C /* NotificationTasksApp.swift */; };
 		DABEA55B28D0F1FC0031A91C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABEA55A28D0F1FC0031A91C /* ContentView.swift */; };
 		DABEA55D28D0F1FD0031A91C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DABEA55C28D0F1FD0031A91C /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 		DAB1ADAA28D51F970079B30A /* NotificationWatchers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationWatchers.swift; sourceTree = "<group>"; };
 		DAB1ADAC28D613040079B30A /* FlavorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlavorManager.swift; sourceTree = "<group>"; };
 		DAB1ADAE28D613140079B30A /* InsistantPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsistantPopover.swift; sourceTree = "<group>"; };
+		DAB1ADB228D629730079B30A /* FlavorNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlavorNotificationService.swift; sourceTree = "<group>"; };
 		DABEA55528D0F1FC0031A91C /* NotificationTasks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotificationTasks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DABEA55828D0F1FC0031A91C /* NotificationTasksApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTasksApp.swift; sourceTree = "<group>"; };
 		DABEA55A28D0F1FC0031A91C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				DAB1ADAE28D613140079B30A /* InsistantPopover.swift */,
 				DABEA58328D0F24E0031A91C /* NotificationService.swift */,
 				DAB1ADAA28D51F970079B30A /* NotificationWatchers.swift */,
+				DAB1ADB228D629730079B30A /* FlavorNotificationService.swift */,
 				DABEA55C28D0F1FD0031A91C /* Assets.xcassets */,
 				DABEA55E28D0F1FD0031A91C /* NotificationTasks.entitlements */,
 				DABEA55F28D0F1FD0031A91C /* Preview Content */,
@@ -278,6 +281,7 @@
 				DABEA55B28D0F1FC0031A91C /* ContentView.swift in Sources */,
 				DABEA58428D0F24E0031A91C /* NotificationService.swift in Sources */,
 				DABEA55928D0F1FC0031A91C /* NotificationTasksApp.swift in Sources */,
+				DAB1ADB328D629730079B30A /* FlavorNotificationService.swift in Sources */,
 				DAB1ADA728D385B80079B30A /* StreamVsPublisher.swift in Sources */,
 				DAB1ADAB28D51F970079B30A /* NotificationWatchers.swift in Sources */,
 				DAB1ADAD28D613040079B30A /* FlavorManager.swift in Sources */,

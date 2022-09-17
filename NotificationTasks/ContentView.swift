@@ -38,6 +38,9 @@ struct NotificationView: View {
             Button("Post Message") {
                 notificationService.publishMessage("Hello")
             }
+            Button("Sloppy Message") {
+                notificationService.sloppyMessage("Can you hear me?")
+            }
         }
         .padding()
         .task {

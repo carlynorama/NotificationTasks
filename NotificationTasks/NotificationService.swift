@@ -16,16 +16,22 @@ import SwiftUI
 //}
 
 
-final class NotificationService {
+
+class NotificationService {
     let notificationCenter = NotificationCenter.default
     
     let messageNotificationName = Notification.Name(rawValue: "special.message")
+    let messageKey = "myMessage"
     
     private var flipObserver:NSObjectProtocol?
     private var messageObserver:NSObjectProtocol?
     
     //Does this need to be weak? Does everyone need to resign?
     private var observers:[NSObjectProtocol] = []
+    
+    private var tasksToCancel:[Task<(), Never>] = []
+    
+
     
     init () {
         setFlipObserver()
@@ -61,6 +67,14 @@ final class NotificationService {
             print("removed \(messageObserver.description)")
         }
         
+        tearDown()
+    }
+    
+    func tearDown() {
+        for task in tasksToCancel {
+            task.cancel()
+        }
+        
         for observer in observers {
             notificationCenter.removeObserver(observer)
             print("removed \(observer.description)")
@@ -68,7 +82,11 @@ final class NotificationService {
     }
     
     func publishMessage(_ message:String) {
-        notificationCenter.post(name: messageNotificationName, object: nil, userInfo: ["myMessage":message])
+        notificationCenter.post(name: messageNotificationName, object: nil, userInfo: [messageKey:message])
+    }
+    
+    func sloppyMessage(_ message:String) {
+        notificationCenter.post(name: messageNotificationName, object: nil, userInfo: [ "Image":Image(systemName: "globe"), messageKey:message])
     }
     
     func orientationChanged(notification: Notification) {
@@ -89,6 +107,27 @@ final class NotificationService {
             queue: queue,  // e.g. NSOperationQueue.mainQueue()
             using: using)  //  e.g. {}
         observers.append(newObserver)
+    }
+    
+    //Can specialize asyncmapsequence, cant specialize asyncsequence
+    func notificationCenterSequence(name:Notification.Name) async ->  AsyncMapSequence<NotificationCenter.Notifications, [AnyHashable : Any]?> {
+        NotificationCenter.default.notifications(named: name)
+            .map { notification in notification.userInfo }
+    }
+    
+    var messageStream:AsyncStream<String> {
+        return AsyncStream { continuation in
+            let streamObserver = Task {
+                let sequence = notificationCenter.notifications(named: messageNotificationName)
+                for await notification in sequence {
+                    print("\(notification)")
+                    let message = notification.userInfo?[messageKey] as? String ?? "Can't parse message"
+                    continuation.yield(message)
+                }
+            }
+            tasksToCancel.append(streamObserver)
+        }
+        
     }
     
 }
@@ -112,7 +151,6 @@ extension NotificationService {
     { NotificationInfoWatcher(
         name: messageNotificationName,
         center: notificationCenter,
-        key: "myMessage",
         type: String.self
     )
     }
