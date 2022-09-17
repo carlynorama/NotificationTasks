@@ -17,7 +17,7 @@ import SwiftUI
 
 
 final class NotificationService {
-    let notifiationCenter = NotificationCenter.default
+    let notificationCenter = NotificationCenter.default
     
     let messageNotificationName = Notification.Name(rawValue: "special.message")
     
@@ -32,43 +32,43 @@ final class NotificationService {
         setCustomMessageObserver()
     }
     
-    func setFlipObserver() {
+    private func setFlipObserver() {
         flipObserver = NotificationCenter.default.addObserver(
             forName: UIDevice.orientationDidChangeNotification,
             object: nil, queue: nil) { [weak self] notification in   //if Service becomes a class ?
-               print(notification)
+                print(notification)
                 self?.orientationChanged(notification: notification)
             }
     }
     
-    func setCustomMessageObserver() {
+    private func setCustomMessageObserver() {
         messageObserver = NotificationCenter.default.addObserver(
             forName: messageNotificationName,
             object: nil, queue: nil) { [weak self] notification in
-               print(notification)
+                print(notification)
                 self?.recievedMessage(notification: notification)
             }
     }
     
     deinit {
         if let flipObserver {
-            notifiationCenter.removeObserver(flipObserver)
+            notificationCenter.removeObserver(flipObserver)
             print("removed \(flipObserver.description)")
         }
         
         if let messageObserver {
-            notifiationCenter.removeObserver(messageObserver)
+            notificationCenter.removeObserver(messageObserver)
             print("removed \(messageObserver.description)")
         }
         
         for observer in observers {
-            notifiationCenter.removeObserver(observer)
+            notificationCenter.removeObserver(observer)
             print("removed \(observer.description)")
         }
     }
     
     func publishMessage(_ message:String) {
-        notifiationCenter.post(name: messageNotificationName, object: message)
+        notificationCenter.post(name: messageNotificationName, object: message)
     }
     
     func batteryLevelChanged(notification: Notification) {
@@ -86,14 +86,71 @@ final class NotificationService {
     }
     
     func addObserver(forName name:NSNotification.Name?, object:Any?, queue: OperationQueue?, using: @escaping (Notification) -> Void) {
-       let newObserver = notifiationCenter.addObserver(
+        let newObserver = notificationCenter.addObserver(
             forName: name,///.batteryLevelDidChangeNotification,
             object: object, queue: queue,
             using: using)
         observers.append(newObserver)
     }
     
+}
+
+extension NotificationService {
+    var flipWatcher:some AsyncSequence
+    { NotificationWatcher(
+        name: UIDevice.orientationDidChangeNotification,
+        center: notificationCenter)
+    }
     
+    var messageWatcher: some AsyncSequence
+    { NotificationObjectWatcher(
+        name: messageNotificationName,
+        center: notificationCenter,
+        type: String.self
+    )
+    }
+    
+//    func makeMessageWatcher() -> some AsyncSequence<String> {
+//
+//    }
+    
+    
+    
+    func watchForFlip() async {
+        do {
+            for try await notification in flipWatcher {
+                print("notification:\(notification)")
+            }
+        } catch {
+            
+        }
+    }
+    
+    func watchForMessage(_ continuation:(String) -> Void) async {
+        do {
+            for try await object in messageWatcher {
+                print("message:\(object)")
+                
+                if let s = object as? String{
+                    continuation(s)
+                }
+                
+            }
+        } catch {
+            
+        }
+    }
+    
+//    func makeWatcher<Object>(for name:Notification.Name, ofType object:Object) -> some AsyncSequence {
+//        NotificationObjectWatcher(name: name, center: notificationCenter, object: Object.self)
+//    }
+//    
+//    func makeFlipWatcher() -> AsyncStream<UIDeviceOrientation> {
+//        makeWatcher(for: UIDevice.orientationDidChangeNotification, ofType: UIDeviceOrientation.self) as! AsyncStream<UIDeviceOrientation>
+//    }
+    
+}
+
 //    func notifications(
 //        named name: Notification.Name,
 //        object: AnyObject? = nil
@@ -117,7 +174,5 @@ final class NotificationService {
 //        print("Received the notification!")
 //        center.removeObserver(token!)
 //    }
-}
-
 
 
