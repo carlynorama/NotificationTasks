@@ -68,11 +68,7 @@ final class NotificationService {
     }
     
     func publishMessage(_ message:String) {
-        notificationCenter.post(name: messageNotificationName, object: message)
-    }
-    
-    func batteryLevelChanged(notification: Notification) {
-        // do something useful with this information
+        notificationCenter.post(name: messageNotificationName, object: nil, userInfo: ["myMessage":message])
     }
     
     func orientationChanged(notification: Notification) {
@@ -84,12 +80,14 @@ final class NotificationService {
             print("recieved message: \(message)")
         }
     }
-    
+
+    //An example.
     func addObserver(forName name:NSNotification.Name?, object:Any?, queue: OperationQueue?, using: @escaping (Notification) -> Void) {
         let newObserver = notificationCenter.addObserver(
-            forName: name,///.batteryLevelDidChangeNotification,
-            object: object, queue: queue,
-            using: using)
+            forName: name, //e.g.  .batteryLevelDidChangeNotification,
+            object: object,  // The object that sends notifications to the observer block.  a Notifier Class
+            queue: queue,  // e.g. NSOperationQueue.mainQueue()
+            using: using)  //  e.g. {}
         observers.append(newObserver)
     }
     
@@ -102,18 +100,22 @@ extension NotificationService {
         center: notificationCenter)
     }
     
+//    var messageWatcher: some AsyncSequence
+//    { NotificationObjectWatcher(
+//        name: messageNotificationName,
+//        center: notificationCenter,
+//        type: String.self
+//    )
+//    }
+
     var messageWatcher: some AsyncSequence
-    { NotificationObjectWatcher(
+    { NotificationInfoWatcher(
         name: messageNotificationName,
         center: notificationCenter,
+        key: "myMessage",
         type: String.self
     )
     }
-    
-//    func makeMessageWatcher() -> some AsyncSequence<String> {
-//
-//    }
-    
     
     
     func watchForFlip() async {
