@@ -1,28 +1,30 @@
 //
-//  WalsExample.swift
+//  ComparingApproaches.swift
 //  NotificationTasks
 //
-//  Created by Labtanza on 9/15/22.
+//  Created by carlynorama on 9/15/22.
 //
-//The code here does not work. Had to update.
-//https://www.donnywals.com/comparing-lifecycle-management-for-async-sequences-and-publishers/
+//
+// https://www.donnywals.com/comparing-lifecycle-management-for-async-sequences-and-publishers/ (code appraoch has been depricated since written)
+// https://www.hackingwithswift.com/quick-start/concurrency/how-to-create-a-custom-asyncsequence
+
 import Foundation
 import Combine
 import SwiftUI
 
-struct ContainerView: View {
+struct ComparisonContainerView: View {
     @State var showExampleView = false
     
     var body: some View {
         Button("Show example") {
             showExampleView = true
         }.sheet(isPresented: $showExampleView) {
-            ExampleView()
+            ComparisonView()
         }
     }
 }
 
-class ExampleViewModel {
+class ComparisonViewModel {
     
     private var tasksToCancel:[Task<(), Never>] = []
     
@@ -44,14 +46,6 @@ class ExampleViewModel {
             .map { _ in await UIDevice.current.orientation }
     }
     
-    
-    
-    //    var sequence:AsyncStream<UIDeviceOrientation> {
-    //        get async {
-    //            await notificationCenterSequence()
-    //        }
-    //    }
-    
     var stream:AsyncStream<UIDeviceOrientation> {
         return AsyncStream { continuation in
             let streamObserver = Task {
@@ -68,12 +62,12 @@ class ExampleViewModel {
     
 }
 
-struct ExampleView: View {
+struct ComparisonView: View {
     @State var isPortraitFromPublisher = false
     @State var isPortraitFromSequence = false
     @State var isPortraitFromLocalSequence = false
     
-    let viewModel = ExampleViewModel()
+    let viewModel = ComparisonViewModel()
     
     var body: some View {
         VStack {
@@ -81,15 +75,23 @@ struct ExampleView: View {
             Text("Portrait from sequence: \(isPortraitFromSequence ? "yes" : "no")")
             Text("Portrait from local sequence: \(isPortraitFromLocalSequence ? "yes" : "no")")
         }
+      //Bespoke publisher.
+        .onReceive(viewModel.notificationCenterPublisher()) { orientation in
+            isPortraitFromPublisher = orientation == .portrait
+        }
+      //As custom async sequence.
+      .task {  await watchForFlips()  }
+      //Async stream. Requires teardown as written.
         .task {
             for await value in viewModel.stream {
                 isPortraitFromSequence = value == .portrait
             }
         }
-        .onReceive(viewModel.notificationCenterPublisher()) { orientation in
-            isPortraitFromPublisher = orientation == .portrait
-        }
+        .onDisappear(perform: viewModel.tearDown)
+              .task {  await watchForFlips()  }
+        // can of course do it all inline.
 //        .task {
+               
 //            let sequence = NotificationCenter.default.notifications(named: UIDevice.orientationDidChangeNotification)
 //                .map { _ in await UIDevice.current.orientation }
 //            for await orientation in sequence {
@@ -97,9 +99,6 @@ struct ExampleView: View {
 //                print(orientation)
 //            }
 //        }
-        .task {  await watchForFlips()  }
-        .onDisappear(perform: viewModel.tearDown)
-        
     }
     
     func watchForFlips() async  {
@@ -115,5 +114,28 @@ struct ExampleView: View {
         } catch {
             
         }
+    }
+}
+
+
+struct FlipWatcher: AsyncSequence, AsyncIteratorProtocol {
+    typealias Element = UIDeviceOrientation
+    
+    private var isActive = true
+    
+    mutating func next() async throws -> Element? {
+        guard isActive else { return nil }
+        let sequence = await NotificationCenter.default.notifications(named: UIDevice.orientationDidChangeNotification)
+            .map { _ in await UIDevice.current.orientation }
+        
+        for await orientation in sequence {
+            print("\(orientation)")
+            return orientation
+        }
+        return nil
+    }
+    
+    func makeAsyncIterator() -> FlipWatcher {
+        self
     }
 }
