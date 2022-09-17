@@ -26,19 +26,30 @@ struct ContentView: View {
 struct NotificationView: View {
     var notificationService = NotificationService()
     
+    @State var messageDisplay:String = "Hello, world!"
+    
+    
     var body: some View {
-        ExampleView()
-//        VStack {
-//            Image(systemName: "globe")
-//                .imageScale(.large)
-//                .foregroundColor(.accentColor)
-//            Text("Hello, world!")
-//            Button("Post Message") {
-//                notificationService.publishMessage("Hello")
-//            }
-//        }
-//        .padding()
+        VStack {
+            Image(systemName: "globe")
+                .imageScale(.large)
+                .foregroundColor(.accentColor)
+            Text(messageDisplay)
+            Button("Post Message") {
+                notificationService.publishMessage("Hello")
+            }
+        }
+        .padding()
+        .task {
+            await notificationService.watchForFlip()
+        }
+        .task {
+            await notificationService.watchForMessage() { message in
+                messageDisplay = message
+            }
+        }
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
