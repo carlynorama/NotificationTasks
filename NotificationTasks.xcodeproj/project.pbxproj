@@ -45,6 +45,7 @@
 		DAB1ADAC28D613040079B30A /* FlavorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlavorManager.swift; sourceTree = "<group>"; };
 		DAB1ADAE28D613140079B30A /* InsistantPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsistantPopover.swift; sourceTree = "<group>"; };
 		DAB1ADB228D629730079B30A /* FlavorNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlavorNotificationService.swift; sourceTree = "<group>"; };
+		DAB1ADB428D634B50079B30A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DABEA55528D0F1FC0031A91C /* NotificationTasks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotificationTasks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DABEA55828D0F1FC0031A91C /* NotificationTasksApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTasksApp.swift; sourceTree = "<group>"; };
 		DABEA55A28D0F1FC0031A91C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -87,6 +88,7 @@
 		DABEA54C28D0F1FC0031A91C = {
 			isa = PBXGroup;
 			children = (
+				DAB1ADB428D634B50079B30A /* README.md */,
 				DABEA55728D0F1FC0031A91C /* NotificationTasks */,
 				DABEA56928D0F1FD0031A91C /* NotificationTasksTests */,
 				DABEA57328D0F1FD0031A91C /* NotificationTasksUITests */,
