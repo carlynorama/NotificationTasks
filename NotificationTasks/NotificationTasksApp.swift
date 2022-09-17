@@ -11,8 +11,7 @@ import SwiftUI
 struct NotificationTasksApp: App {
     var body: some Scene {
         WindowGroup {
-            ContainerView()
-            //ContentView()
+            ContentView()
         }
     }
 }
