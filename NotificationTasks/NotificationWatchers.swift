@@ -79,10 +79,10 @@ public struct NotificationInfoWatcher<Element>: AsyncSequence, AsyncIteratorProt
     let center:NotificationCenter
     let keyString:String?
     
-    public init(name: Notification.Name, center: NotificationCenter, key:String? = nil, type: Element.Type) {
+    public init(name: Notification.Name, center: NotificationCenter, keyString:String? = nil, type: Element.Type) {
         self.name = name
         self.center = center
-        self.keyString = key
+        self.keyString = keyString
     }
     
     private var isActive = true

@@ -31,6 +31,8 @@ let flavors = [
 actor FlavorManager {
     @Published var myFlavors:[Flavor] = []
     @Published var currentFlavor:Flavor = Flavor(name: "Apple Pie", description: "Seasonal Yummy")
+    
+    let notificationService = NotificationService()
 
     func addData() async {
         for flavor in flavors {
