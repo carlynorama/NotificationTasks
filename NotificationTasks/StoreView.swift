@@ -30,7 +30,8 @@ struct StoreView: View {
             await viewModel.watchForSpecial()
         }
         .task {
-            await viewModel.listenForFlavorList()
+            //await viewModel.listenForFlavorList()
+            await viewModel.updateFlavorsOnNotificationPing()
         }
     }
 

@@ -18,11 +18,14 @@ struct WelcomeView: View {
     @State var specialUpdateTime:Date = Date.now
     @State var availbeUpdateTime:Date = Date.now
     
+    @State var specialCallOut:String = ""
+    
     var body: some View {
         VStack {
             Text("Welcome View")
             Text("New Flavors: \(availbeUpdateTime.formatted(date: .abbreviated, time: .standard))")
             Text("New Special: \(specialUpdateTime.formatted(date: .abbreviated, time: .standard))")
+            Text("Special Name: \(specialCallOut)")
             Button("Toggle Parlor View") { showMe.toggle() }
             if showMe {
                 IceCreamParlorView().border(.blue)
@@ -35,6 +38,12 @@ struct WelcomeView: View {
         .task {
             await watchAvailable()
         }
+        .task {
+            await notificationCenter.specialHandler { flavor in
+                specialCallOut = flavor.name
+            }
+        }
+        
     }
     
     func watchSpecial() async {
@@ -56,15 +65,7 @@ struct WelcomeView: View {
 
         }
     }
-    
-//    func opacity(_ date:Date) -> Double {
-//        let dif = Double(date.timeIntervalSince(Date.now))
-//        if dif > 10.0 {
-//            return 0.0
-//        } else {
-//            return max(1 - dif/100, 0)
-//        }
-//    }
+
 }
 
 struct WelcomeView_Previews: PreviewProvider {

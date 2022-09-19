@@ -24,20 +24,13 @@ class IceCreamParlorVM:ObservableObject {
         print("IceCreamParlorVM deinit check")
     }
     
-//    func fetchFlavorsFromManager() async {
-//        let pendingAvailable = await manager.availableFlavors
-//        await MainActor.run {
-//            available = pendingAvailable
-//        }
-//        print("finished flavors fetch")
-//        lastUpdate = Date.now
-//    }
+
     
     //Note, this is not really a reccomended way if you actually have model, hanging out as the real source of truth.
     public func watchForSpecial() async {
         do {
             for try await flavor in flavorNotificationService.specialWatcher {
-                print("got", flavor)
+                print("IPVM, wfS: got", flavor)
                     thisWeeksSpecial = (flavor as? Flavor) ?? Flavor(name: "Suprise", description: "Local yummy")
                     lastUpdate = Date.now
             }
@@ -46,8 +39,9 @@ class IceCreamParlorVM:ObservableObject {
         }
     }
     
+    //When manager.$availableFlavors is published
     public func listenForFlavorList() async {
-        defer { print("IFVM, lfFL:How about defer?") }
+        defer { print("IPVM, lfFL:How about defer?") }
         //uard let manager = manager else { return }
         for await value in await manager.$availableFlavors.values {
             await MainActor.run { //[weak self] in
@@ -56,6 +50,27 @@ class IceCreamParlorVM:ObservableObject {
                     
         }
     }
+    
+    public func updateFlavorsOnNotificationPing() async {
+        if available.isEmpty {
+            await fetchFlavorsFromManager()
+        }
+        do {
+            for try await _ in flavorNotificationService.avaibleFlavorsWatcher {
+                await fetchFlavorsFromManager()
+            }
+        } catch {
+
+        }
+    }
+        func fetchFlavorsFromManager() async {
+            let pendingAvailable = await manager.unpublishedFlavorsExample
+            await MainActor.run {
+                available = pendingAvailable
+            }
+            print("IPVM, fffM: finished flavors fetch")
+            lastUpdate = Date.now
+        }
     
 }
 

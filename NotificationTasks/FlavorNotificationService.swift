@@ -35,16 +35,17 @@ struct FlavorNotificationService {
         notificationCenter.post(name: flavorSpecial, object: object ?? self, userInfo: [flavorSpecialKey : special])
     }
     
-//    public func watchForSpecial() async -> Flavor {
-//        do {
-//            for try await flavor in specialWatcher {
-//                return (flavor as? Flavor) ?? Flavor(name: "Suprise", description: "Local yummy")
-//            }
-//        } catch {
-//            
-//        }
-//        return Flavor(name: "Suprise", description: "Local yummy")
-//    }
+    public func specialHandler(continuation:(Flavor) -> ()) async {
+        do {
+            for try await flavor in specialWatcher {
+                let confirmed = (flavor as? Flavor) ?? Flavor(name: "Suprise", description: "Local yummy")
+                continuation(confirmed)
+            }
+        } catch {
+            
+        }
+        
+    }
     
     public func postUpdatedFlavorsNotification(object:Any? = nil) {
         notificationCenter.post(name:newFlavors, object: object ?? self)

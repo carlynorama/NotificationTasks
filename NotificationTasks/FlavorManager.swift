@@ -34,9 +34,18 @@ actor FlavorManager {
     
     @MainActor @Published var availableFlavors:[Flavor] = [] {
         didSet {
-            notificationService.postUpdatedFlavorsNotification(object:self)
+            Task { await updateFlavors(to: availableFlavors) }
         }
     }
+    
+    var unpublishedFlavorsExample:[Flavor] = []
+    
+    func updateFlavors(to flavors:[Flavor]) {
+        unpublishedFlavorsExample = flavors
+        notificationService.postUpdatedFlavorsNotification(object:self)
+    }
+    
+    
     var currentSpecial:Flavor = Flavor(name: "Apple Pie", description: "Seasonal Yummy") {
         didSet {
             notificationService.postNewSpecial(currentSpecial, object:self)
