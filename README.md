@@ -16,8 +16,11 @@ Will eventually recreate Ice Cream store with a notification center instead of j
 - https://developer.apple.com/documentation/foundation/nsnotification/name
 - https://gist.github.com/skyspirit86/e1a13022c6b77633d915b9b9c337ec5f
 
-### WWDC: 
-- Meet async sequence 
-- Explore structured concurency
-- What's new in User Notifications
-
+### WWDC Lectures: 
+- Meet async sequence: https://developer.apple.com/videos/play/wwdc2021/10058/
+- What's new in User Notifications: https://developer.apple.com/videos/play/wwdc2018/710/
+- Explore structured concurency: https://developer.apple.com/videos/play/wwdc2021/10134/
+- Swift concurrency: Behind the scenes: https://developer.apple.com/videos/play/wwdc2021/10254/
+- Visualize and optimize Swift concurrency: https://developer.apple.com/videos/play/wwdc2022/110350/
+- Discover concurrency in SwiftUI: https://developer.apple.com/videos/play/wwdc2021/10019/
+- Updating a sample app code: https://developer.apple.com/documentation/swift/updating_an_app_to_use_swift_concurrency

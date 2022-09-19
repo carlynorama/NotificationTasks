@@ -7,13 +7,14 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ScratchPadView: View {
 
     
     @State var showMe:Bool = false
     
     var body: some View {
         VStack {
+            ComparisonContainerView()
             Button("Toggle View") { showMe.toggle() }
             if showMe {
                 NotificationView()
@@ -57,6 +58,6 @@ struct NotificationView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ScratchPadView()
     }
 }

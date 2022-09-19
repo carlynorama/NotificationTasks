@@ -10,10 +10,11 @@ import Foundation
 
 struct FlavorNotificationService {
     
-    let notificationCenter = NotificationCenter.default
-    let flavorSpecial = Notification.Name(rawValue: "special.message")
-    let newFlavors = Notification.Name(rawValue: "special.message")
+   private let notificationCenter = NotificationCenter.default
+    private let flavorSpecial = Notification.Name(rawValue: "flavorSpecial")
+    private let flavorSpecialKey = "flavorSpecial"
     
+    private let newFlavors = Notification.Name(rawValue: "thisWeeksFlavors")
 
     var specialWatcher: some AsyncSequence  //How can I make this an AsyncSequence of FLAVORS?
     { NotificationInfoWatcher(
@@ -23,16 +24,23 @@ struct FlavorNotificationService {
     )
     }
     
+    public func postNewSpecial(_ special:Flavor, object:Any? = nil) {
+        notificationCenter.post(name: flavorSpecial, object: object ?? self, userInfo: [flavorSpecialKey : special])
+    }
     
-    func watchForSpecial() async -> Flavor {
-        do {
-            for try await flavor in specialWatcher {
-                return (flavor as? Flavor) ?? Flavor(name: "Suprise", description: "Local yummy")
-            }
-        } catch {
-            
-        }
-        return Flavor(name: "Suprise", description: "Local yummy")
+//    public func watchForSpecial() async -> Flavor {
+//        do {
+//            for try await flavor in specialWatcher {
+//                return (flavor as? Flavor) ?? Flavor(name: "Suprise", description: "Local yummy")
+//            }
+//        } catch {
+//            
+//        }
+//        return Flavor(name: "Suprise", description: "Local yummy")
+//    }
+    
+    public func postUpdatedFlavorsNotification(object:Any? = nil) {
+        notificationCenter.post(name:newFlavors, object: object ?? self)
     }
     
 //    func watchForMessage(_ continuation:(String) -> Void) async {

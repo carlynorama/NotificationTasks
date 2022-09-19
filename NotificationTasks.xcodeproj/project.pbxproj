@@ -10,10 +10,13 @@
 		DAB1ADA728D385B80079B30A /* StreamVsPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB1ADA628D385B80079B30A /* StreamVsPublisher.swift */; };
 		DAB1ADAB28D51F970079B30A /* NotificationWatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB1ADAA28D51F970079B30A /* NotificationWatchers.swift */; };
 		DAB1ADAD28D613040079B30A /* FlavorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB1ADAC28D613040079B30A /* FlavorManager.swift */; };
-		DAB1ADAF28D613140079B30A /* InsistantPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB1ADAE28D613140079B30A /* InsistantPopover.swift */; };
+		DAB1ADAF28D613140079B30A /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB1ADAE28D613140079B30A /* StoreView.swift */; };
 		DAB1ADB328D629730079B30A /* FlavorNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB1ADB228D629730079B30A /* FlavorNotificationService.swift */; };
+		DAB1ADB728D63EBC0079B30A /* IceCreamParlorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB1ADB628D63EBC0079B30A /* IceCreamParlorView.swift */; };
+		DAB1ADB928D65D2B0079B30A /* IceCreamParlorVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB1ADB828D65D2B0079B30A /* IceCreamParlorVM.swift */; };
+		DAB1ADBB28D65E800079B30A /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB1ADBA28D65E800079B30A /* WelcomeView.swift */; };
 		DABEA55928D0F1FC0031A91C /* NotificationTasksApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABEA55828D0F1FC0031A91C /* NotificationTasksApp.swift */; };
-		DABEA55B28D0F1FC0031A91C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABEA55A28D0F1FC0031A91C /* ContentView.swift */; };
+		DABEA55B28D0F1FC0031A91C /* ScratchPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABEA55A28D0F1FC0031A91C /* ScratchPadView.swift */; };
 		DABEA55D28D0F1FD0031A91C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DABEA55C28D0F1FD0031A91C /* Assets.xcassets */; };
 		DABEA56128D0F1FD0031A91C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DABEA56028D0F1FD0031A91C /* Preview Assets.xcassets */; };
 		DABEA56B28D0F1FD0031A91C /* NotificationTasksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABEA56A28D0F1FD0031A91C /* NotificationTasksTests.swift */; };
@@ -43,12 +46,15 @@
 		DAB1ADA628D385B80079B30A /* StreamVsPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamVsPublisher.swift; sourceTree = "<group>"; };
 		DAB1ADAA28D51F970079B30A /* NotificationWatchers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationWatchers.swift; sourceTree = "<group>"; };
 		DAB1ADAC28D613040079B30A /* FlavorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlavorManager.swift; sourceTree = "<group>"; };
-		DAB1ADAE28D613140079B30A /* InsistantPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsistantPopover.swift; sourceTree = "<group>"; };
+		DAB1ADAE28D613140079B30A /* StoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		DAB1ADB228D629730079B30A /* FlavorNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlavorNotificationService.swift; sourceTree = "<group>"; };
 		DAB1ADB428D634B50079B30A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DAB1ADB628D63EBC0079B30A /* IceCreamParlorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IceCreamParlorView.swift; sourceTree = "<group>"; };
+		DAB1ADB828D65D2B0079B30A /* IceCreamParlorVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IceCreamParlorVM.swift; sourceTree = "<group>"; };
+		DAB1ADBA28D65E800079B30A /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		DABEA55528D0F1FC0031A91C /* NotificationTasks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotificationTasks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DABEA55828D0F1FC0031A91C /* NotificationTasksApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTasksApp.swift; sourceTree = "<group>"; };
-		DABEA55A28D0F1FC0031A91C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		DABEA55A28D0F1FC0031A91C /* ScratchPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScratchPadView.swift; sourceTree = "<group>"; };
 		DABEA55C28D0F1FD0031A91C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DABEA55E28D0F1FD0031A91C /* NotificationTasks.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationTasks.entitlements; sourceTree = "<group>"; };
 		DABEA56028D0F1FD0031A91C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -85,6 +91,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DAB1ADB528D639A90079B30A /* ScratchPad */ = {
+			isa = PBXGroup;
+			children = (
+				DABEA58328D0F24E0031A91C /* NotificationService.swift */,
+				DABEA55A28D0F1FC0031A91C /* ScratchPadView.swift */,
+				DAB1ADA628D385B80079B30A /* StreamVsPublisher.swift */,
+			);
+			path = ScratchPad;
+			sourceTree = "<group>";
+		};
 		DABEA54C28D0F1FC0031A91C = {
 			isa = PBXGroup;
 			children = (
@@ -109,12 +125,13 @@
 		DABEA55728D0F1FC0031A91C /* NotificationTasks */ = {
 			isa = PBXGroup;
 			children = (
-				DAB1ADA628D385B80079B30A /* StreamVsPublisher.swift */,
+				DAB1ADB528D639A90079B30A /* ScratchPad */,
 				DABEA55828D0F1FC0031A91C /* NotificationTasksApp.swift */,
-				DABEA55A28D0F1FC0031A91C /* ContentView.swift */,
 				DAB1ADAC28D613040079B30A /* FlavorManager.swift */,
-				DAB1ADAE28D613140079B30A /* InsistantPopover.swift */,
-				DABEA58328D0F24E0031A91C /* NotificationService.swift */,
+				DAB1ADB628D63EBC0079B30A /* IceCreamParlorView.swift */,
+				DAB1ADBA28D65E800079B30A /* WelcomeView.swift */,
+				DAB1ADAE28D613140079B30A /* StoreView.swift */,
+				DAB1ADB828D65D2B0079B30A /* IceCreamParlorVM.swift */,
 				DAB1ADAA28D51F970079B30A /* NotificationWatchers.swift */,
 				DAB1ADB228D629730079B30A /* FlavorNotificationService.swift */,
 				DABEA55C28D0F1FD0031A91C /* Assets.xcassets */,
@@ -279,13 +296,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB1ADAF28D613140079B30A /* InsistantPopover.swift in Sources */,
-				DABEA55B28D0F1FC0031A91C /* ContentView.swift in Sources */,
+				DAB1ADAF28D613140079B30A /* StoreView.swift in Sources */,
+				DABEA55B28D0F1FC0031A91C /* ScratchPadView.swift in Sources */,
 				DABEA58428D0F24E0031A91C /* NotificationService.swift in Sources */,
 				DABEA55928D0F1FC0031A91C /* NotificationTasksApp.swift in Sources */,
 				DAB1ADB328D629730079B30A /* FlavorNotificationService.swift in Sources */,
+				DAB1ADB928D65D2B0079B30A /* IceCreamParlorVM.swift in Sources */,
+				DAB1ADBB28D65E800079B30A /* WelcomeView.swift in Sources */,
 				DAB1ADA728D385B80079B30A /* StreamVsPublisher.swift in Sources */,
 				DAB1ADAB28D51F970079B30A /* NotificationWatchers.swift in Sources */,
+				DAB1ADB728D63EBC0079B30A /* IceCreamParlorView.swift in Sources */,
 				DAB1ADAD28D613040079B30A /* FlavorManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
