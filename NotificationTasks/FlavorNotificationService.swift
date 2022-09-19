@@ -24,6 +24,13 @@ struct FlavorNotificationService {
     )
     }
     
+    var avaibleFlavorsWatcher: some AsyncSequence  //How can I make this an AsyncSequence of FLAVORS?
+    { NotificationWatcher(
+        name: newFlavors,
+        center: notificationCenter
+    )
+    }
+    
     public func postNewSpecial(_ special:Flavor, object:Any? = nil) {
         notificationCenter.post(name: flavorSpecial, object: object ?? self, userInfo: [flavorSpecialKey : special])
     }

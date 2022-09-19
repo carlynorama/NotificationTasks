@@ -30,7 +30,9 @@ let flavors = [
 
 
 actor FlavorManager {
-    var availableFlavors:[Flavor] = [] {
+    let notificationService = FlavorNotificationService()
+    
+    @MainActor @Published var availableFlavors:[Flavor] = [] {
         didSet {
             notificationService.postUpdatedFlavorsNotification(object:self)
         }
@@ -41,13 +43,15 @@ actor FlavorManager {
         }
     }
     
-    let notificationService = FlavorNotificationService()
+    
     
     private(set) var checkingForUpdates:Bool = true
     
     @MainActor @Published var flavorUpdatesCount = 0
     
-    func listenForSpecials() async {
+    
+    //MARK: - Mock Data Creation
+    func generateSpecials() async {
         let  randomSpecialFlavorUpdates = Task {
             await specialFlavorsGenerator()
         }
@@ -55,28 +59,36 @@ actor FlavorManager {
         await updateManagedTasks(randomSpecialFlavorUpdates)
     }
     
-    func specialFlavorsGenerator() async {
-        while checkingForUpdates {
-            currentSpecial = flavors.randomElement() ?? Flavor(name: "Apple Pie", description: "Seasonal Yummy")
-            await MainActor.run  { flavorUpdatesCount += 1 }
-            print("New Special", currentSpecial.name)
-            try? await  Task.sleep(nanoseconds: 4_000_000_000)
+    func generateAvailable() async {
+        let randomAvailable = Task {
+            await availableFlavorsGenerator()
         }
-        print("loop done.")
-        printTasks()
+        
+        await updateManagedTasks(randomAvailable)
     }
     
     func availableFlavorsGenerator() async {
         while checkingForUpdates {
-            currentSpecial = flavors.randomElement() ?? Flavor(name: "Apple Pie", description: "Seasonal Yummy")
-            await MainActor.run  { flavorUpdatesCount += 1 }
-            print("New Special", currentSpecial.name)
-            try? await  Task.sleep(nanoseconds: 4_000_000_000)
+            await MainActor.run { availableFlavors = Array(flavors.shuffled().prefix(5)) }
+            await print("New Flavors:", availableFlavors)
+            try? await  Task.sleep(nanoseconds: 6_000_000_000)
         }
-        print("loop done.")
+        print("availableFlavors loop done.")
         printTasks()
     }
     
+    func specialFlavorsGenerator() async {
+        while checkingForUpdates {
+            currentSpecial = flavors.randomElement() ?? Flavor(name: "Apple Pie", description: "Seasonal Yummy")
+            await MainActor.run  { flavorUpdatesCount += 1 }
+            print("New Special:", currentSpecial.name)
+            try? await  Task.sleep(nanoseconds: 4_000_000_000)
+        }
+        print("specialFlavors loop done.")
+        printTasks()
+    }
+    
+    //MARK: - Scene Change Handler
     public func updateMode(scenePhase:ScenePhase) async {
         print(scenePhase)
         switch (scenePhase) {
@@ -91,7 +103,8 @@ actor FlavorManager {
             printTasks()
         case .active:
             checkingForUpdates = true
-            await listenForSpecials()
+            await generateSpecials()
+            await generateAvailable()
             printTasks()
         @unknown default:
             checkingForUpdates = false
@@ -100,7 +113,7 @@ actor FlavorManager {
         }
     }
     
-    //MARK: Task Management
+    //MARK: - Task Management
     
     //Arrays hold onto values strongly.
     //Must delete canceled tasks mannually or design a weak Collection type.

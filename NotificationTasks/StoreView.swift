@@ -18,6 +18,7 @@ struct StoreView: View {
         VStack {
             Text(viewModel.thisWeeksSpecial.name)
             Text("Updated \(viewModel.updateCount) times")
+            
             ScrollView {
                 VStack {
                     ForEach(viewModel.available) {
@@ -26,7 +27,10 @@ struct StoreView: View {
                 }
             }
         }.task {
-            await viewModel.casualSetUp()
+            await viewModel.watchForSpecial()
+        }
+        .task {
+            await viewModel.listenForFlavorList()
         }
     }
 
