@@ -55,6 +55,7 @@ struct WelcomeView: View {
                 Button("Show/Hide Stores") { showMe.toggle() }
                 if showMe {
                     IceCreamParlorsView()
+                    ComparisonView()
                 }
                 Spacer()
                 

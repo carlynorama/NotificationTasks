@@ -46,7 +46,7 @@ class ComparisonViewModel {
             .map { _ in await UIDevice.current.orientation }
     }
     
-    var stream:AsyncStream<UIDeviceOrientation> {
+    var subTaskSpawingingStream:AsyncStream<UIDeviceOrientation> {
         return AsyncStream { continuation in
             let streamObserver = Task {
                 let sequence = await notificationCenterSequence()
@@ -58,6 +58,25 @@ class ComparisonViewModel {
             tasksToCancel.append(streamObserver)
         }
         
+    }
+    
+    var asyncStream:AsyncStream<UIDeviceOrientation> {
+        return AsyncStream.init(unfolding: unfolding, onCancel: onCancel)
+        
+        //() async -> _?
+        func unfolding() async -> UIDeviceOrientation? {
+            let sequence = await notificationCenterSequence()
+            for await orientation in sequence {
+                print("\(orientation)")
+                return orientation
+            }
+            return nil
+        }
+        
+        //optional
+        @Sendable func onCancel() -> Void {
+            print("ComaprisonVM asyncStream Got Canceled")
+        }
     }
     
 }
@@ -83,12 +102,18 @@ struct ComparisonView: View {
       .task {  await watchForFlips()  }
       //Async stream. Requires teardown as written.
         .task {
-            for await value in viewModel.stream {
+            for await value in viewModel.subTaskSpawingingStream {
                 isPortraitFromSequence = value == .portrait
             }
         }
         .onDisappear(perform: viewModel.tearDown)
-              .task {  await watchForFlips()  }
+        .task {  await watchForFlips()  }
+        .task {
+            defer { print("Async Stream Ended W/o cancel.")}
+            for await value in viewModel.asyncStream {
+                isPortraitFromSequence = value == .portrait
+            }
+        }
         // can of course do it all inline.
 //        .task {
                
