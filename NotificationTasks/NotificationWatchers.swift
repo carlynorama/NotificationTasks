@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-
 public struct NotificationWatcher: AsyncSequence, AsyncIteratorProtocol {
     
     public typealias Element = Notification

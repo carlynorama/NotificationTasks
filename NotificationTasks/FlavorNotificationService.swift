@@ -16,6 +16,7 @@ struct FlavorNotificationService {
     
     private let newFlavors = Notification.Name(rawValue: "thisWeeksFlavors")
 
+    //TODO: Make this a stream?
     var specialWatcher: some AsyncSequence  //How can I make this an AsyncSequence of FLAVORS?
     { NotificationInfoWatcher(
         name: flavorSpecial,

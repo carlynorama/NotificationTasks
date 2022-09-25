@@ -34,6 +34,7 @@ actor FlavorManager {
     
     @MainActor @Published var availableFlavors:[Flavor] = [] {
         didSet {
+            //not named and filed b/c should be allowed to finish. 
             Task { await updateFlavors(to: availableFlavors) }
         }
     }
@@ -79,7 +80,7 @@ actor FlavorManager {
     func availableFlavorsGenerator() async {
         while checkingForUpdates {
             await MainActor.run { availableFlavors = Array(flavors.shuffled().prefix(5)) }
-            await print("New Flavors:", availableFlavors)
+            //await print("New Flavors:", availableFlavors)
             try? await  Task.sleep(nanoseconds: 6_000_000_000)
         }
         print("availableFlavors loop done.")
@@ -90,7 +91,7 @@ actor FlavorManager {
         while checkingForUpdates {
             currentSpecial = flavors.randomElement() ?? Flavor(name: "Apple Pie", description: "Seasonal Yummy")
             await MainActor.run  { flavorUpdatesCount += 1 }
-            print("New Special:", currentSpecial.name)
+            //print("New Special:", currentSpecial.name)
             try? await  Task.sleep(nanoseconds: 4_000_000_000)
         }
         print("specialFlavors loop done.")

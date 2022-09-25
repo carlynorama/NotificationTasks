@@ -28,7 +28,7 @@ struct IceCreamParlorsView: View {
             .padding()
             ComingSoonView(storeName: "Houston")
             ComingSoonView(storeName: "Chicago")
-            ComingSoonView(storeName: "Phoenix")
+            //ComingSoonView(storeName: "Phoenix")
             
         }
     }

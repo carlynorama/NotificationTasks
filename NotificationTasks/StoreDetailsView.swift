@@ -13,6 +13,9 @@ struct StoreDetailsView: View {
     //there is a task creator IN THE INIT of this VM. The tasks will last with the VM or longer. Watch for leaks.
     @EnvironmentObject private var viewModel:IceCreamParlorVM
     
+    init() {
+        print("Store Details View Init")
+    }
 
     var body: some View {
         VStack(alignment: .leading) {

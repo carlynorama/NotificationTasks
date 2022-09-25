@@ -19,11 +19,12 @@ struct WelcomeView: View {
     @State var availbeUpdateTime:Date = Date.now
     
     @State var yourStore:String = "Los Angeles"
-    
-    
-    
-    
+
     @State var specialCallOut:String = ""
+    
+    init() {
+        print("Welcome view Init")
+    }
     
     var body: some View {
         
@@ -33,22 +34,24 @@ struct WelcomeView: View {
             Text("Your Store: \(yourStore)")
             
             HStack(alignment: .firstTextBaseline) {
-            Text ("Latest from Your Store:")
+                Text ("Latest from Your Store:")
                 Spacer()
                 VStack(alignment: .leading) {
-                    Text("We got a new flavor \(specialUpdateTime.formatted(.relative(presentation: .numeric)))")
-                    Text("\(specialCallOut)!").font(.headline)
+                    Text("We got a new flavor!")
+                    Text("\(specialCallOut)").font(.headline)
+                    Text("\(specialUpdateTime.formatted(.relative(presentation: .numeric)))")
                 }
                 Spacer()
                 VStack(alignment: .leading) {
-                    Text("Available flavors were updated \(availbeUpdateTime.formatted(.relative(presentation: .named)))")
+                    Text("Available flavors were updated:")
+                    Text("\(availbeUpdateTime.formatted(.relative(presentation: .named)))")
                 }
                 
             }.padding()
-            .border(.blue)
+                .border(.blue)
             
-//            Text("New Flavors: \(availbeUpdateTime.formatted(date: .abbreviated, time: .standard))")
-//            Text("New Special: \(specialUpdateTime.formatted(date: .abbreviated, time: .standard))")
+            //            Text("New Flavors: \(availbeUpdateTime.formatted(date: .abbreviated, time: .standard))")
+            //            Text("New Special: \(specialUpdateTime.formatted(date: .abbreviated, time: .standard))")
             
             
             Group {
@@ -78,13 +81,13 @@ struct WelcomeView: View {
     }
     
     func watchSpecial() async {
-                do {
-                    for try await _ in notificationCenter.specialWatcher {
-                        specialUpdateTime = Date.now
-                    }
-                } catch {
-        
-                }
+        do {
+            for try await _ in notificationCenter.specialWatcher {
+                specialUpdateTime = Date.now
+            }
+        } catch {
+            
+        }
     }
     
     func watchAvailable() async {
@@ -93,10 +96,10 @@ struct WelcomeView: View {
                 availbeUpdateTime = Date.now
             }
         } catch {
-
+            
         }
     }
-
+    
 }
 
 struct WelcomeView_Previews: PreviewProvider {
