@@ -18,18 +18,48 @@ struct WelcomeView: View {
     @State var specialUpdateTime:Date = Date.now
     @State var availbeUpdateTime:Date = Date.now
     
+    @State var yourStore:String = "Los Angeles"
+    
+    
+    
+    
     @State var specialCallOut:String = ""
     
     var body: some View {
-        VStack {
-            Text("Welcome View")
-            Text("New Flavors: \(availbeUpdateTime.formatted(date: .abbreviated, time: .standard))")
-            Text("New Special: \(specialUpdateTime.formatted(date: .abbreviated, time: .standard))")
-            Text("Special Name: \(specialCallOut)")
-            Button("Toggle Parlor View") { showMe.toggle() }
-            if showMe {
-                IceCreamParlorView().border(.blue)
+        
+        VStack(alignment:.leading) {
+            
+            Text("Welcome View").font(.largeTitle)
+            Text("Your Store: \(yourStore)")
+            
+            HStack(alignment: .firstTextBaseline) {
+            Text ("Latest from Your Store:")
+                Spacer()
+                VStack(alignment: .leading) {
+                    Text("We got a new flavor \(specialUpdateTime.formatted(.relative(presentation: .numeric)))")
+                    Text("\(specialCallOut)!").font(.headline)
+                }
+                Spacer()
+                VStack(alignment: .leading) {
+                    Text("Available flavors were updated \(availbeUpdateTime.formatted(.relative(presentation: .named)))")
+                }
+                
+            }.padding()
+            .border(.blue)
+            
+//            Text("New Flavors: \(availbeUpdateTime.formatted(date: .abbreviated, time: .standard))")
+//            Text("New Special: \(specialUpdateTime.formatted(date: .abbreviated, time: .standard))")
+            
+            
+            Group {
+                Button("Show/Hide Stores") { showMe.toggle() }
+                if showMe {
+                    IceCreamParlorsView()
+                }
+                Spacer()
+                
             }
+            
         }
         .padding()
         .task {

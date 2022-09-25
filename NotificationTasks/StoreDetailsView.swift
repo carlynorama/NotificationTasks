@@ -9,18 +9,18 @@ import Foundation
 import SwiftUI
 
 
-struct StoreView: View {
+struct StoreDetailsView: View {
     //there is a task creator IN THE INIT of this VM. The tasks will last with the VM or longer. Watch for leaks.
     @EnvironmentObject private var viewModel:IceCreamParlorVM
     
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text(viewModel.thisWeeksSpecial.name)
             Text("Updated \(viewModel.updateCount) times")
             
             ScrollView {
-                VStack {
+                VStack(alignment: .leading) {
                     ForEach(viewModel.available) {
                         Text($0.name)
                     }
@@ -40,6 +40,6 @@ struct StoreView: View {
 
 struct StoreView_Previews: PreviewProvider {
     static var previews: some View {
-        StoreView().environmentObject(IceCreamParlorVM())
+        StoreDetailsView().environmentObject(IceCreamParlorVM())
     }
 }

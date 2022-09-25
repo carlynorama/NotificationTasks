@@ -16,6 +16,8 @@ class IceCreamParlorVM:ObservableObject {
     @Published var thisWeeksSpecial:Flavor = Flavor(name: "Suprise", description: "Local yummy")
     @Published var lastUpdate:Date = Date.now
     
+    let locationName = "Los Angeles"
+    
     var updateCount:Int {
         manager.flavorUpdatesCount
     }
