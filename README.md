@@ -1,6 +1,6 @@
 #  More Task Exploration with Notifications
 
-Will eventually recreate Ice Cream store with a notification center instead of just publishers and streams as per https://github.com/carlynorama/AsyncPublisherTests
+Recreates Ice Cream store with a notification center instead of just publishers and streams as done in https://github.com/carlynorama/AsyncPublisherTests
 
 ## References:
 
