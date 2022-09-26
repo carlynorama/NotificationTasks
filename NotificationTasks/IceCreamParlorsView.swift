@@ -10,10 +10,15 @@ import SwiftUI
 
 struct IceCreamParlorsView: View {
         
+    // These variables b/c of their property wrappers, persist
+    // between inits. Any variables without a persisting wrapper will not.
         @State var showMe:Bool = false
         @StateObject var iceCreamVM = IceCreamParlorVM()
 
-        
+    init() {
+        print("IceCreamParlorsView Init")
+    }
+    
     var body: some View {
         HStack(alignment: .top) {
             ComingSoonView(storeName: "New York")

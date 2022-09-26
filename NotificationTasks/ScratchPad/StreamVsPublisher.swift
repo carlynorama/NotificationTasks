@@ -83,16 +83,18 @@ class ComparisonViewModel {
 
 struct ComparisonView: View {
     @State var isPortraitFromPublisher = false
-    @State var isPortraitFromSequence = false
+    @State var isPortraitFromTaskSequence = false
     @State var isPortraitFromLocalSequence = false
+    @State var isPortraitFromStream = false
     
     let viewModel = ComparisonViewModel()
     
     var body: some View {
         VStack {
             Text("Portrait from publisher: \(isPortraitFromPublisher ? "yes" : "no")")
-            Text("Portrait from sequence: \(isPortraitFromSequence ? "yes" : "no")")
+            Text("Portrait from task spawing stream: \(isPortraitFromTaskSequence ? "yes" : "no")")
             Text("Portrait from local sequence: \(isPortraitFromLocalSequence ? "yes" : "no")")
+            Text("Portrait from custom sequence: \(isPortraitFromStream ? "yes" : "no")")
         }
       //Bespoke publisher.
         .onReceive(viewModel.notificationCenterPublisher()) { orientation in
@@ -103,15 +105,15 @@ struct ComparisonView: View {
       //Async stream. Requires teardown as written.
         .task {
             for await value in viewModel.subTaskSpawingingStream {
-                isPortraitFromSequence = value == .portrait
+                isPortraitFromTaskSequence = value == .portrait
             }
         }
         .onDisappear(perform: viewModel.tearDown)
         .task {  await watchForFlips()  }
         .task {
-            defer { print("Async Stream Ended W/o cancel.")}
+            defer { print("ComparisoView: asyncStream canceled w/o explicit cancel")}
             for await value in viewModel.asyncStream {
-                isPortraitFromSequence = value == .portrait
+                isPortraitFromStream = value == .portrait
             }
         }
         // can of course do it all inline.

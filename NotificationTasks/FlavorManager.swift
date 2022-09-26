@@ -32,6 +32,7 @@ let flavors = [
 actor FlavorManager {
     let notificationService = FlavorNotificationService()
     
+    //for publisher paradigm
     @MainActor @Published var availableFlavors:[Flavor] = [] {
         didSet {
             //not named and filed b/c should be allowed to finish. 
@@ -39,6 +40,7 @@ actor FlavorManager {
         }
     }
     
+    //For notification service paradigm
     var unpublishedFlavorsExample:[Flavor] = []
     
     func updateFlavors(to flavors:[Flavor]) {
@@ -54,30 +56,36 @@ actor FlavorManager {
     }
     
     
-    
+    //Should I be running?
     private(set) var checkingForUpdates:Bool = true
     
+    //Am I running?
     @MainActor @Published var flavorUpdatesCount = 0
     
     
-    //MARK: - Mock Data Creation
+    //MARK: - Mock Data Creation, in a real set up would be getting from server.
     func generateSpecials() async {
+        //Start the task.
         let  randomSpecialFlavorUpdates = Task {
-            await specialFlavorsGenerator()
+            await specialFlavorsEnigine()
         }
         
+        //Put the task under management.
         await updateManagedTasks(randomSpecialFlavorUpdates)
     }
     
     func generateAvailable() async {
+        //Start the task.
         let randomAvailable = Task {
-            await availableFlavorsGenerator()
+            await availableFlavorsEngine()
         }
         
+        //Put the task under management.
         await updateManagedTasks(randomAvailable)
     }
     
-    func availableFlavorsGenerator() async {
+    
+    func availableFlavorsEngine() async {
         while checkingForUpdates {
             await MainActor.run { availableFlavors = Array(flavors.shuffled().prefix(5)) }
             //await print("New Flavors:", availableFlavors)
@@ -87,7 +95,7 @@ actor FlavorManager {
         printTasks()
     }
     
-    func specialFlavorsGenerator() async {
+    func specialFlavorsEnigine() async {
         while checkingForUpdates {
             currentSpecial = flavors.randomElement() ?? Flavor(name: "Apple Pie", description: "Seasonal Yummy")
             await MainActor.run  { flavorUpdatesCount += 1 }

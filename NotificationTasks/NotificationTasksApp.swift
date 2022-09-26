@@ -17,7 +17,6 @@ struct NotificationTasksApp: App {
     
     var body: some Scene {
         WindowGroup {
-            
             WelcomeView()
         }.onChange(of: scenePhase) { newPhase in
             Task { await Services.flavorManager.updateMode(scenePhase: newPhase) }

@@ -26,6 +26,10 @@ class IceCreamParlorVM:ObservableObject {
         print("IceCreamParlorVM deinit check")
     }
     
+    init() {
+        print("ICPVM init")
+    }
+    
 
     
     //Note, this is not really a reccomended way if you actually have model, hanging out as the real source of truth.
