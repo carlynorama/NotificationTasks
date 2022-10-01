@@ -46,6 +46,7 @@ class ComparisonViewModel {
             .map { _ in await UIDevice.current.orientation }
     }
     
+    //See https://github.com/carlynorama/StreamPublisherTests for a better way.
     var subTaskSpawingingStream:AsyncStream<UIDeviceOrientation> {
         return AsyncStream { continuation in
             let streamObserver = Task {
