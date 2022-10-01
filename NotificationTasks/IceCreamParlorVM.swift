@@ -13,7 +13,7 @@ class IceCreamParlorVM:ObservableObject {
     var manager = Services.flavorManager
     let flavorNotificationService = FlavorNotificationService()
     @Published var available: [Flavor] = []
-    @Published var thisWeeksSpecial:Flavor = Flavor(name: "Suprise", description: "Local yummy")
+    @Published var thisWeeksSpecial:Flavor = Flavor(name: "Surprise", description: "Local yummy")
     @Published var lastUpdate:Date = Date.now
     
     let locationName = "Los Angeles"
@@ -37,7 +37,7 @@ class IceCreamParlorVM:ObservableObject {
         do {
             for try await flavor in flavorNotificationService.specialWatcher {
                 print("IPVM, wfS: got", flavor)
-                    thisWeeksSpecial = (flavor as? Flavor) ?? Flavor(name: "Suprise", description: "Local yummy")
+                    thisWeeksSpecial = (flavor as? Flavor) ?? Flavor(name: "Surprise", description: "Local yummy")
                     lastUpdate = Date.now
             }
         } catch {

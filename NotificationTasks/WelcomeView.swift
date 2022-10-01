@@ -16,7 +16,7 @@ struct WelcomeView: View {
     let notificationCenter = FlavorNotificationService()
     
     @State var specialUpdateTime:Date = Date.now
-    @State var availbeUpdateTime:Date = Date.now
+    @State var availableUpdateTime:Date = Date.now
     
     @State var yourStore:String = "Los Angeles"
 
@@ -44,13 +44,19 @@ struct WelcomeView: View {
                 Spacer()
                 VStack(alignment: .leading) {
                     Text("Available flavors were updated:")
-                    Text("\(availbeUpdateTime.formatted(.relative(presentation: .named)))")
+                    Text("\(availableUpdateTime.formatted(.relative(presentation: .named)))")
                 }
+                Spacer()
+                VStack(alignment: .leading) {
+                    Text("Flavor Focus:")
+                    Text("Some info about a flavor.")
+                }
+                
                 
             }.padding()
                 .border(.blue)
             
-            //            Text("New Flavors: \(availbeUpdateTime.formatted(date: .abbreviated, time: .standard))")
+            //            Text("New Flavors: \(availableUpdateTime.formatted(date: .abbreviated, time: .standard))")
             //            Text("New Special: \(specialUpdateTime.formatted(date: .abbreviated, time: .standard))")
             
             
@@ -93,7 +99,7 @@ struct WelcomeView: View {
     func watchAvailable() async {
         do {
             for try await _ in notificationCenter.avaibleFlavorsWatcher {
-                availbeUpdateTime = Date.now
+                availableUpdateTime = Date.now
             }
         } catch {
             
