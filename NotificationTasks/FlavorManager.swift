@@ -67,7 +67,7 @@ actor FlavorManager {
     func generateSpecials() async {
         //Start the task.
         let  randomSpecialFlavorUpdates = Task {
-            await specialFlavorsEnigine()
+            await specialFlavorsEngine()
         }
         
         //Put the task under management.
@@ -95,7 +95,7 @@ actor FlavorManager {
         printTasks()
     }
     
-    func specialFlavorsEnigine() async {
+    func specialFlavorsEngine() async {
         while checkingForUpdates {
             currentSpecial = flavors.randomElement() ?? Flavor(name: "Apple Pie", description: "Seasonal Yummy")
             await MainActor.run  { flavorUpdatesCount += 1 }

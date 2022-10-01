@@ -56,10 +56,6 @@ struct WelcomeView: View {
             }.padding()
                 .border(.blue)
             
-            //            Text("New Flavors: \(availableUpdateTime.formatted(date: .abbreviated, time: .standard))")
-            //            Text("New Special: \(specialUpdateTime.formatted(date: .abbreviated, time: .standard))")
-            
-            
             Group {
                 Button("Show/Hide Stores") { showMe.toggle() }
                 if showMe {

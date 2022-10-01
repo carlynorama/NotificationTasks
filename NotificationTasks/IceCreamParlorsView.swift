@@ -16,7 +16,7 @@ struct IceCreamParlorsView: View {
         @StateObject var iceCreamVM = IceCreamParlorVM()
 
     init() {
-        print("IceCreamParlorsView Init")
+        //print("IceCreamParlorsView Init")
     }
     
     var body: some View {
